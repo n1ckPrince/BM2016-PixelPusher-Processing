@@ -1,0 +1,13 @@
+Project Notes
+
+Sunday, November 15th, 2015 - NP
+
+After getting the PixelPusher board online last week and figuring out how to transfer to device with pixel.rc file and load command, we looked at code provided by BN and adjusted it to align hex fields for RGB color control on device. Had to reset field to rbg to get proper alignment. Launched GitHub repository at NickHPrince/BM2016-PixelPusher-Processing
+
+ToDo:
+Request BN's code and files to be added and organized to GitHub repo
+Load examples to PixelPusher to verify their functionality
+Find/Create code to light system via saved video format (.mov, .mkv, .avi?)
+Find/Create code to allow for sensor input to be read by PixelPusher
+
+End notes and questions: None. Load examples next week!

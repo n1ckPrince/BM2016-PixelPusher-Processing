@@ -1,0 +1,18 @@
+)'(
+
+// Starter Resources for Processing and PixelPusher
+
+Download and Install Processing
+https://processing.org/download/?processing
+
+PixelPusher Processing Documentation
+./documentation/ProgrammingthePixelPusher.pdf
+
+Code Examples
+./examples
+
+Processing on ARM
+https://www.raspberrypi.org/learning/introduction-to-processing/
+
+=================
+Last Edited: 20151115 0940
