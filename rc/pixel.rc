@@ -1,0 +1,37 @@
+# 360 pixels per strip = 72 pixels times five metres
+# 160 pixels per strip = 32 pixels time 5M
+controller=1
+group=1
+
+pixels=160
+
+strip1=apa102
+strip2=apa102
+strip3=apa102
+strip4=apa102
+strip5=apa102
+strip6=apa102
+strip7=apa102
+strip8=apa102
+
+# current betterpixel strips use rgb ordering
+order1=rbg
+order2=rbg
+order3=rbg
+order4=rbg
+order5=rbg
+order6=rbg
+order7=rbg
+order8=rbg
+
+start1=00ff00
+start2=00
+start3=
+start4=
+start5=
+start6=
+start7=
+start8=
+
+# you may need this line depending on which version you have
+# swap=12345678
