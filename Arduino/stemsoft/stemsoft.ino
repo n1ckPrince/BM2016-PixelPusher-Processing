@@ -1,16 +1,18 @@
 #include <CapacitiveSensor.h>
 #include "FastLED.h"
-#define NUM_LEDS 150
+#define NUM_LEDS 300
 #define datapin  8
 CRGB ledsA[NUM_LEDS];
 float cutoff = 4.5;
 long runtotal[8];
 long bruisetime[8];
+long fadetime[8];
 long bruising = 10000;
 long total[8];
 long avg[8];
 long starttime[8];
 int waslow[8];
+int glow[8];
 int loops = 0;
 int numstops = round(255/NUM_LEDS);
 float ihue = 0;
@@ -108,6 +110,7 @@ void loop()
       if (total[k] > (float)cut){
         digitalWrite(k + 12, HIGH);
         s[k] = 1;
+        //glow[k] = 1;
         ssum += pow(2, k);
         if(waslow[k] == 1){
           starttime[k] = millis();
@@ -130,6 +133,8 @@ void loop()
 
 void ledlighting(){
   long timenow;
+  long glowfade;
+  int r, b;
   timenow = millis();
   //Serial.print(ssum);
   //Serial.print("\t");  
@@ -141,10 +146,58 @@ void ledlighting(){
   for(int i = 0; i < NUM_LEDS; i++) 
     ledsA[i] = CRGB(127, 127, 127);
   for( int k = 0; k < 2; k++){
+      glowfade = timenow - bruisetime[k];
       if( bruisetime[k] != 0){
           if( timenow - bruisetime[k] < bruising){
+              if( glow[k] == 1 && s[k] == 0){
+                r = 180;
+                b = 40;
+                if(glowfade > 150){
+                  r = 160;
+                  b = 60;
+                  }
+                if(glowfade > 300){
+                  r = 140;
+                  b = 80;
+                  }
+                if(glowfade > 450){
+                  r = 120;
+                  b = 100;
+                  }
+                if(glowfade > 600){
+                  r = 100;
+                  b = 120;
+                  }
+                if(glowfade > 750){
+                  r = 80;
+                  b = 140;
+                  }
+                if(glowfade > 900){
+                  r = 60;
+                  b = 160;
+                  }
+                if(glowfade > 1050){
+                  r = 40;
+                  b = 185;
+                  }
+                if(glowfade > 1200){
+                  r = 20;
+                  b = 205;
+                  }
+                if(glowfade > 1350){
+                  r = 0;
+                  b = 255;
+                  glow[k] = 0;
+                  }
+                }
+             else{
+                b = 255;
+                r = 0;
+                }   
+             
+             
              for( int l = 37 * k; l < 37 * (k + 1); l++)
-                ledsA[l] = CRGB( 0, 0, 255);  
+                ledsA[l] = CRGB( r, 0, b);  
              }
           else
              bruisetime[k] = 0;
@@ -288,6 +341,7 @@ void setsegment(int i, int j, int segnum){
         if( timediff < 1800){
          for(l = i; l < j; l++)
             ledsA[l] = CRGB( 125, 0, 130);
+         glow[segnum] = 1;   
          return;
          }
        
@@ -319,7 +373,8 @@ void setsegment(int i, int j, int segnum){
        if( timediff >= 3000){
          for(l = i; l < j; l++)
             ledsA[l] = CRGB( 255, 0, 0);
-         ssum += pow(2, segnum); 
+         ssum += pow(2, segnum);
+          
          return;
          }
     
